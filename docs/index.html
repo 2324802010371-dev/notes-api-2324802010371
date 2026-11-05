@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài 1 - Hello Cloud</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.7;
+    }
+    h1, h2 { color: #1d4ed8; }
+    h1 { text-align: center; }
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px #00000012;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 12px;
+      text-align: left;
+    }
+    th { background: #dbeafe; }
+    tr:nth-child(even) { background: #f8fafc; }
+    a { color: #2563eb; }
+    @media(max-width: 650px) {
+      body { margin: 0; padding: 10px; }
+      .card { padding: 12px; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <h1>BÀI 1: HELLO CLOUD API</h1>
+  <p style="text-align:center">
+    Môn học: Điện toán đám mây - TDMU
+  </p>
+
+  <div class="card">
+    <h2>1. Thông tin sinh viên</h2>
+    <p><b>MSSV:</b> 2324802010371</p>
+    <p><b>GitHub:</b> 2324802010371-dev</p>
+    <p><b>Môi trường:</b> GitHub Codespaces</p>
+    <p><b>Ứng dụng:</b> Node.js 22 + Express</p>
+  </div>
+
+  <div class="card">
+    <h2>2. So sánh môi trường</h2>
+    <table>
+      <tr>
+        <th>Tiêu chí</th>
+        <th>Máy cá nhân</th>
+        <th>Codespace</th>
+      </tr>
+      <tr>
+        <td>Thời gian chuẩn bị</td>
+        <td>Chưa đo riêng</td>
+        <td>Chưa ghi nhận thời gian</td>
+      </tr>
+      <tr>
+        <td>CPU</td>
+        <td>12 luồng logic</td>
+        <td>2 CPU logic</td>
+      </tr>
+      <tr>
+        <td>RAM</td>
+        <td>16 GB DDR4</td>
+        <td>7.8 GB</td>
+      </tr>
+      <tr>
+        <td>Hệ điều hành</td>
+        <td>Windows 11 26H2</td>
+        <td>Linux 6.8.0-1064-azure</td>
+      </tr>
+      <tr>
+        <td>Truy cập từ thiết bị khác</td>
+        <td>Cần cấu hình mạng và dịch vụ</td>
+        <td>HTTPS qua URL Codespaces</td>
+      </tr>
+      <tr>
+        <td>Chi phí và cách đo</td>
+        <td>Chi phí thiết bị, điện và Internet</td>
+        <td>
+          GitHub Billing Usage theo giờ máy,
+          loại máy và GB-tháng lưu trữ.
+          Ngày 04/11: 0.42 giờ máy 2-core,
+          phí thực trả $0.
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>3. Năm đặc tính NIST</h2>
+
+    <h3>1. On-demand Self-service</h3>
+    <p>
+      Sinh viên tự tạo Codespace qua GitHub
+      mà không cần người quản trị cấp máy thủ công.
+    </p>
+
+    <h3>2. Broad Network Access</h3>
+    <p>
+      API chạy trên Codespaces và được truy cập
+      từ điện thoại thông qua URL HTTPS công khai.
+    </p>
+
+    <h3>3. Resource Pooling</h3>
+    <p>
+      GitHub cấp tài nguyên tính toán từ
+      hạ tầng đám mây dùng chung.
+      Sinh viên không cần quản lý máy chủ vật lý.
+    </p>
+
+    <h3>4. Rapid Elasticity</h3>
+    <p>
+      Codespaces cho phép lựa chọn cấu hình máy
+      và cấp phát thêm môi trường khi cần.
+      Bài thực hành đã tạo máy 2-core;
+      chưa thử trực tiếp việc tăng cấu hình.
+    </p>
+
+    <h3>5. Measured Service</h3>
+    <p>
+      GitHub Billing Usage ghi nhận
+      thời gian tính toán, loại máy,
+      dung lượng lưu trữ và chi phí sử dụng.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>4. Kết luận</h2>
+    <p>
+      Qua bài thực hành, em đã tạo môi trường
+      lập trình trên đám mây, xây dựng API
+      Hello Cloud bằng Node.js và Express,
+      chạy ứng dụng qua Internet và theo dõi
+      việc sử dụng tài nguyên.
+    </p>
+    <p>
+      GitHub Codespaces giúp giảm thời gian
+      cài đặt và đồng bộ môi trường giữa
+      các thiết bị. Tuy nhiên, việc sử dụng
+      phụ thuộc vào kết nối Internet và
+      hạn mức tài nguyên của nhà cung cấp.
+    </p>
+  </div>
+</body>
+</html>

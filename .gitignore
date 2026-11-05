@@ -1,0 +1,7 @@
+
+# Khong dua thu vien Node.js len GitHub
+node_modules/
+
+# Khong dua mat khau va bien moi truong len GitHub
+.env
+.env.*
