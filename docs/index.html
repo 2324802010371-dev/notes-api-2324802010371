@@ -155,5 +155,157 @@
       hạn mức tài nguyên của nhà cung cấp.
     </p>
   </div>
+
+<section class="card">
+  <h1>BÀI 2: ẢO HÓA, CONTAINER VÀ CLOUDSIM PLUS</h1>
+  <p><b>Sinh viên:</b> Hồ Công Tín</p>
+  <p><b>MSSV:</b> 2324802010371</p>
+
+  <h2>1. So sánh Codespace và Container</h2>
+  <table>
+    <tr>
+      <th>Tiêu chí</th>
+      <th>Codespace</th>
+      <th>Container notes2</th>
+    </tr>
+    <tr>
+      <td>Thời gian khởi động</td>
+      <td>Khoảng 9 phút theo Bài 1</td>
+      <td>0,405 giây (container ngắn hạn)</td>
+    </tr>
+    <tr>
+      <td>Kích thước</td>
+      <td>Hạn mức lưu trữ 15 GB-tháng</td>
+      <td>Docker Image: 251 MB disk usage</td>
+    </tr>
+    <tr>
+      <td>Nhân hệ điều hành</td>
+      <td>Linux 6.8.0-1070-azure</td>
+      <td>Dùng chung nhân Linux với môi trường Docker</td>
+    </tr>
+    <tr>
+      <td>Mức cô lập</td>
+      <td>Môi trường phát triển trên hạ tầng đám mây</td>
+      <td>Cô lập bằng namespaces và cgroups</td>
+    </tr>
+    <tr>
+      <td>Giới hạn CPU và RAM</td>
+      <td>Máy Codespace 2-core</td>
+      <td>0,5 CPU và 128 MiB RAM</td>
+    </tr>
+  </table>
+
+  <p><i>
+    Lưu ý: 15 GB-tháng là hạn mức lưu trữ,
+    không phải dung lượng máy ảo.
+    Hai phép đo thời gian cũng khác nhau về phạm vi.
+  </i></p>
+
+  <h2>2. Kết quả mô phỏng CloudSim Plus</h2>
+  <table>
+    <tr>
+      <th>Lần</th>
+      <th>Thay đổi</th>
+      <th>FinishTime (giây)</th>
+      <th>Kết quả</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>Cấu hình mặc định</td>
+      <td>20,1</td>
+      <td>4/4 Cloudlet thành công</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Tăng VM từ 2 lên 4</td>
+      <td>45,6</td>
+      <td>4/4 Cloudlet thành công</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Tăng Cloudlet từ 4 lên 8</td>
+      <td>40,1</td>
+      <td>4/8 Cloudlet hoàn thành</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>CloudletSchedulerSpaceShared</td>
+      <td>20,1</td>
+      <td>4/4 Cloudlet thành công</td>
+    </tr>
+  </table>
+
+  <p>
+    Ở lần 2, CloudSim Plus đã gửi đủ 8 Cloudlet
+    nhưng chỉ 4 tác vụ hoàn thành. Các Cloudlet
+    còn lại không được cấp đủ RAM và băng thông.
+    Giá trị 40,1 giây không phản ánh thời gian
+    hoàn thành toàn bộ 8 Cloudlet.
+  </p>
+
+  <h2>3. Câu hỏi phản biện</h2>
+
+  <h3>Câu 1: Vì sao container vẫn báo RAM máy chủ?</h3>
+  <p>
+    API sử dụng os.totalmem() để lấy tổng bộ nhớ
+    mà hệ điều hành báo cáo. Giá trị này có thể
+    phản ánh bộ nhớ của máy chủ thay vì giới hạn
+    cgroups của container.
+  </p>
+  <p>
+    Khi chạy Node.js hoặc Java trong container,
+    cần kiểm tra giới hạn bộ nhớ thực tế bằng
+    cgroups, docker stats và cấu hình bộ nhớ
+    của runtime. Vượt giới hạn có thể khiến
+    tiến trình bị hệ điều hành kết thúc.
+  </p>
+
+  <h3>Câu 2: TimeShared và SpaceShared khác nhau?</h3>
+  <p>
+    TimeShared cho phép nhiều Cloudlet chia sẻ
+    tài nguyên CPU theo thời gian. SpaceShared
+    yêu cầu đủ lõi CPU trước khi tác vụ được chạy;
+    các tác vụ chưa đủ tài nguyên phải chờ.
+  </p>
+  <p>
+    Trong thí nghiệm này, cả hai chính sách
+    đều cho FinishTime 20,1 giây vì VM có đủ
+    lõi cho các Cloudlet hiện có.
+  </p>
+  <p>
+    Nhà cung cấp dịch vụ giá rẻ có thể ưu tiên
+    TimeShared để tăng hiệu suất sử dụng tài nguyên,
+    chấp nhận biến động hiệu năng. SpaceShared
+    phù hợp hơn khi cần cấp tài nguyên dành riêng
+    và hiệu năng dễ dự đoán.
+  </p>
+
+  <h3>Câu 3: Lợi ích và hạn chế của mô phỏng?</h3>
+  <p>
+    Mô phỏng giúp thử cấu hình Host, VM, số lượng
+    tác vụ và chính sách lập lịch trước khi đầu tư
+    hoặc thuê hạ tầng thật, qua đó đánh giá
+    khả năng đáp ứng và nhận diện điểm nghẽn.
+  </p>
+  <p>
+    Tuy nhiên, kết quả mô phỏng phụ thuộc vào
+    các giả định về hiệu năng CPU, mạng, RAM
+    và tải công việc. Hệ thống thực tế còn có
+    độ trễ, lỗi phần cứng, tranh chấp tài nguyên
+    và những biến động khó mô phỏng chính xác.
+  </p>
+
+  <h2>4. Docker Image trên GHCR</h2>
+  <p>
+    Image:
+    <code>ghcr.io/2324802010371-dev/notes-api:1.0</code>
+  </p>
+  <p>
+    <a href="https://github.com/users/2324802010371-dev/packages/container/notes-api">
+      Xem GitHub Container Registry Package
+    </a>
+  </p>
+</section>
+
 </body>
 </html>
